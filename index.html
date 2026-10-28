@@ -35,10 +35,10 @@
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
     opacity: 0; visibility: hidden;
-    transition: opacity 1.6s ease, visibility 0s linear 1.6s;
+    transition: opacity .7s ease, visibility 0s linear .7s;
     overflow: hidden;
   }
-  .slide.active { opacity: 1; visibility: visible; transition: opacity 1.6s ease .3s; }
+  .slide.active { opacity: 1; visibility: visible; transition: opacity .7s ease; }
   .slide.light { background: var(--cream); color: #1a1718; }
   .slide.light.alt { background: var(--cream-2); }
   .inner {
@@ -86,6 +86,16 @@
   @keyframes fill { to { width: 100%; } }
   body.on-light .progress span { background: rgba(26,23,24,.18); }
   body.on-light .progress span i { background: #1a1718; }
+  .nav {
+    position: fixed; z-index: 11; bottom: max(14px, env(safe-area-inset-bottom)); width: 40px; height: 40px; border-radius: 50%;
+    border: 1px solid rgba(239,233,223,.3); background: rgba(18,16,20,.45); color: var(--cream);
+    font: 600 24px/1 system-ui, sans-serif; display: flex; align-items: center; justify-content: center; padding-bottom: 3px;
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); cursor: pointer; opacity: .75;
+  }
+  .nav:active { transform: scale(.92); }
+  .nav.prev { left: 14px; }
+  .nav.next { right: 14px; }
+  body.on-light .nav { border-color: rgba(26,23,24,.25); background: rgba(239,233,223,.6); color: #1a1718; }
   body.paused *, body.paused *::before, body.paused *::after { animation-play-state: paused !important; }
   .hint {
     position: fixed; z-index: 10; bottom: max(12px, env(safe-area-inset-bottom)); left: 0; right: 0;
@@ -245,11 +255,13 @@
 </head>
 <body>
 <div class="progress" id="progress"></div>
+<button class="nav prev" id="navPrev" type="button" aria-label="Previous">‹</button>
+<button class="nav next" id="navNext" type="button" aria-label="Next">›</button>
 
 <main class="deck" id="deck">
 
   <!-- 1. COVER -->
-  <section class="slide cover" data-dur="10000">
+  <section class="slide cover" data-dur="12000">
     <div class="frame cover-frame-pulse"></div>
     <div class="inner">
       <div class="kicker rv" style="--d:.2s;font-size:11px">A field guide to the corporate underworld</div>
@@ -274,7 +286,7 @@
   </section>
 
   <!-- 2. STORY -->
-  <section class="slide story" data-dur="20000">
+  <section class="slide story" data-dur="30000">
     <svg class="spiral" viewBox="-500 -500 1000 1000"><g><path id="spiralPath" fill="none" stroke="#8a857f" stroke-width="22" stroke-dasharray="14 10"/></g></svg>
     <div class="mails">
       <div class="mail" style="left:8%;--d:.6s;--r:-6deg">URGENT</div>
@@ -301,7 +313,7 @@
   </section>
 
   <!-- 3. REAPER -->
-  <section class="slide reaper" data-dur="18000">
+  <section class="slide reaper" data-dur="26000">
     <div class="reaper-wrap">
       <svg class="ghost" viewBox="0 0 220 320" style="overflow:visible">
         <g class="scythe">
@@ -327,7 +339,7 @@
   </section>
 
   <!-- 4. TREE -->
-  <section class="slide light tree-slide" data-dur="16000">
+  <section class="slide light tree-slide" data-dur="24000">
     <div class="tree-box"><svg class="tree" viewBox="-1284 -1612 971 1600" preserveAspectRatio="xMidYMin slice">
       <defs>
         <linearGradient id="growFade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".88" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
@@ -344,7 +356,7 @@
   </section>
 
   <!-- 5. WEB -->
-  <section class="slide light alt web-slide" data-dur="26000">
+  <section class="slide light alt web-slide" data-dur="38000">
     <div class="inner">
       <div class="kicker rv" style="--d:.2s">03 / The trap</div>
       <h2 class="rv" style="--d:.4s">THE WEB OF<br>ENDLESS TASKS</h2>
@@ -362,7 +374,7 @@
   </section>
 
   <!-- 6. DOOR -->
-  <section class="slide light door-slide" data-dur="22000">
+  <section class="slide light door-slide" data-dur="32000">
     <div class="inner">
       <div class="kicker rv" style="--d:.2s">04 / No way out</div>
       <h2 class="rv" style="--d:.4s">THE BLACK DOOR</h2>
@@ -383,7 +395,7 @@
   </section>
 
   <!-- 7. FINAL -->
-  <section class="slide final" data-dur="14000">
+  <section class="slide final" data-dur="20000">
     <div class="inner">
       <div>
         <div class="kicker rv" style="--d:.2s">The final warning</div>
@@ -507,7 +519,7 @@
       clearTimeout(holdTimer);
       const held = document.body.classList.contains("paused");
       document.body.classList.remove("paused");
-      if (e.target.closest("#replay")) return;
+      if (e.target.closest("#replay, .nav")) return;
       const dx = e.clientX - downX;
       document.body.classList.add("started");
       if (Math.abs(dx) > 50) { go(i + (dx < 0 ? 1 : -1)); return; }
@@ -520,6 +532,8 @@
       if (e.key === "ArrowLeft") go(i - 1);
     });
     document.getElementById("replay").addEventListener("click", () => go(0));
+    document.getElementById("navPrev").addEventListener("click", () => go(i - 1));
+    document.getElementById("navNext").addEventListener("click", () => go(i + 1));
     document.addEventListener("visibilitychange", () => document.body.classList.toggle("paused", document.hidden));
 
     go(0);
