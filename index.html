@@ -52,6 +52,17 @@
   p { font-size: 15px; line-height: 1.6; }
   .light p { color: #2a2526; }
   .tagline { font-size: 14px; font-weight: 800; color: var(--red); text-align: center; }
+  .red { color: var(--red); }
+  .right { text-align: right; }
+  .right.pr { padding-right: 8%; }
+  .ind0 { padding-left: 4%; }
+  .ind1 { padding-left: 10%; }
+  .ind2 { padding-left: 18%; }
+  .ind3 { padding-left: 28%; }
+  .clock { font-size: 18px; font-weight: 800; color: var(--red); margin-bottom: 4px; }
+  .active .clock { animation: rise .8s forwards var(--d), riskBlink 1.2s ease-in-out infinite calc(var(--d) + 1s); }
+  .story p, .reaper p, .door-slide p { font-size: 14px; line-height: 1.55; }
+  .reaper p { font-size: 13.5px; text-wrap: pretty; }
 
   /* reveal-in animation for text, staggered with --d */
   .rv { opacity: 0; transform: translateY(14px); }
@@ -128,13 +139,13 @@
   .active .mail { animation: floatUp 6s ease-in infinite; animation-delay: var(--d); }
   @keyframes floatUp {
     0% { transform: translateY(0) rotate(var(--r)); opacity: 0; }
-    10% { opacity: .95; }
-    85% { opacity: .9; }
+    10% { opacity: .38; }
+    85% { opacity: .32; }
     100% { transform: translateY(-105vh) rotate(calc(var(--r) * -1)); opacity: 0; }
   }
 
   /* ---------- 3 reaper ---------- */
-  .reaper-wrap { position: absolute; z-index: 1; right: -30px; bottom: -10px; width: 78%; max-width: 380px; }
+  .reaper-wrap { position: absolute; z-index: 1; right: -10px; bottom: -10px; width: min(66%, 40vh); max-width: 330px; }
   .active .reaper-body { animation: sway 4s ease-in-out infinite; transform-origin: 50% 100%; transform-box: fill-box; }
   @keyframes sway { 50% { transform: rotate(-2.5deg) translateX(-4px); } }
   .active .scythe { animation: swing 2.6s ease-in-out infinite; transform-origin: 150px 140px; }
@@ -154,7 +165,14 @@
 
   /* ---------- 5 web ---------- */
   .web-slide p { font-size: 14px; line-height: 1.5; }
-  .web { width: 100%; max-width: min(300px, 28vh); margin: 6px auto 0; display: block; }
+  .web-wrap { position: relative; height: min(300px, 34vh); margin: 10px -12px 6px; }
+  .web { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .web-wrap p { position: absolute; z-index: 1; font-size: 13.5px; }
+  .web-t1 { top: 2%; left: 12px; right: 12px; }
+  .web-t2 { top: 34%; right: 12px; text-align: right; }
+  .web-t3 { top: 60%; left: 16px; }
+  .reminder { margin-top: auto; padding-top: 12px; text-align: center; font-size: 13px; font-weight: 800; color: var(--red); }
+  .active .reminder { animation: rise .8s forwards var(--d), riskBlink 1.6s ease-in-out infinite calc(var(--d) + 1s); }
   .crawler { opacity: 0; }
   .active .crawler { animation: crawl 7s linear forwards; animation-delay: var(--d); offset-rotate: 0deg; }
   @keyframes crawl { 0% { opacity: 0; offset-distance: 0%; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { opacity: 0; offset-distance: 100%; } }
@@ -164,7 +182,7 @@
   @keyframes ticker { to { transform: translateX(-100%); } }
 
   /* ---------- 6 door ---------- */
-  .door-stage { position: relative; width: 190px; height: 260px; margin: 26px auto 0; perspective: 700px; }
+  .door-stage { position: relative; width: min(170px, 22vh); height: min(230px, 30vh); margin: 22px auto 0; perspective: 700px; }
   .door-glow {
     position: absolute; inset: 0; border-radius: 95px 95px 14px 14px; overflow: hidden;
     background: radial-gradient(circle at 50% 55%, #fff 0%, #f6efe4 40%, #e9c9c4 100%);
@@ -254,7 +272,7 @@
   </section>
 
   <!-- 2. STORY -->
-  <section class="slide story" data-dur="8000">
+  <section class="slide story" data-dur="10000">
     <svg class="spiral" viewBox="-500 -500 1000 1000"><g><path id="spiralPath" fill="none" stroke="#8a857f" stroke-width="22" stroke-dasharray="14 10"/></g></svg>
     <div class="mails">
       <div class="mail" style="left:8%;--d:.6s;--r:-6deg">URGENT</div>
@@ -266,17 +284,22 @@
     <div class="inner">
       <div class="kicker rv" style="--d:.2s">The story</div>
       <h2 class="rv" style="--d:.4s">A handover that<br>never ends</h2>
-      <div class="lines" style="margin-top:12px">
-        <p class="rv" style="--d:1s">Mỗi khi một nhân viên nghĩ rằng mình đã hoàn thành công việc và có thể rời đi,</p>
-        <p class="rv" style="--d:2s">một email mới lại xuất hiện.</p>
-        <p class="rv" style="--d:3s">Một yêu cầu <b style="color:var(--red)">URGENT</b> sinh ra thêm hàng trăm deadline.</p>
-        <p class="rv" style="--d:4s">Và mỗi lần một client được bàn giao, một linh hồn mới lại bị kéo vào vòng lặp.</p>
+      <div class="lines" style="margin-top:14px">
+        <div class="clock rv" style="--d:.8s">17h15</div>
+        <p class="rv" style="--d:1.2s">Mỗi khi ta nghĩ rằng công việc đã hoàn thành và có thể rời đi,</p>
+        <p class="rv right pr" style="--d:2s">một email mới lại bump lên</p>
+        <p class="rv ind1" style="--d:2.7s">một yêu cầu URGENT bất ngờ ập tới</p>
+        <p class="rv right" style="--d:3.4s">hàng trăm deadlines nối đuôi nhau</p>
+        <p class="rv" style="--d:4.1s">xuất hiện vào đúng <b class="red">17h15</b></p>
+        <p class="rv" style="--d:5.2s;margin-top:18px">Vậy là,</p>
+        <p class="rv ind1" style="--d:5.8s">một linh hồn mới lại bị kéo vào guồng quay</p>
+        <p class="rv right" style="--d:6.6s">vô tận...</p>
       </div>
     </div>
   </section>
 
   <!-- 3. REAPER -->
-  <section class="slide reaper" data-dur="8000">
+  <section class="slide reaper" data-dur="9000">
     <div class="reaper-wrap">
       <svg class="ghost" viewBox="0 0 220 320" style="overflow:visible">
         <g class="scythe">
@@ -293,9 +316,11 @@
     <div class="inner">
 
       <h2 class="rv" style="--d:.4s">THE REAPER<br>OF DEADLINES</h2>
-      <p class="rv" style="--d:1.2s;margin-top:16px;max-width:78%">Thần chết đứng chờ với lưỡi liềm trên tay.</p>
-      <p class="rv" style="--d:2.2s;margin-top:12px;max-width:78%">Lưỡi liềm tượng trưng cho những deadline đang cắt vụn thời gian của nhân viên.</p>
-      <p class="rv" style="--d:3.2s;margin-top:12px;max-width:62%">Bất cứ ai bước vào đều có nguy cơ bị cuốn vào vòng xoáy công việc bất tận.</p>
+      <p class="rv" style="--d:1s;margin-top:16px">Phía đầu guồng quay, là vị thần chết đang đứng chờ với cây lưỡi liềm <b>“Deadlines”</b> trên tay,</p>
+      <p class="rv" style="--d:2.2s;margin-top:16px">Hắn luôn chực chờ</p>
+      <p class="rv" style="--d:2.8s;padding-left:8%">để cắt vụn quỹ thời gian của nhân viên.</p>
+      <p class="rv" style="--d:3.8s;margin-top:16px">Bất cứ ai bước vào chốn này</p>
+      <p class="rv" style="--d:4.4s;padding-left:3%">đều sẽ bị cuốn vào vòng xoáy công việc bất tận.</p>
     </div>
   </section>
 
@@ -317,26 +342,34 @@
   </section>
 
   <!-- 5. WEB -->
-  <section class="slide light alt web-slide" data-dur="9000">
+  <section class="slide light alt web-slide" data-dur="12000">
     <div class="inner">
       <div class="kicker rv" style="--d:.2s">03 / The trap</div>
       <h2 class="rv" style="--d:.4s">THE WEB OF<br>ENDLESS TASKS</h2>
-      <svg class="web" id="web" viewBox="0 0 300 300" fill="none" stroke="#fbf7f0" stroke-linecap="round"></svg>
-      <p class="rv" style="--d:3s;margin-top:4px">Tấm lưới đen phủ xuống là chiếc bẫy vô hình của: những task chồng chéo, những việc tưởng đã xong nhưng lại quay về, và những vấn đề không ai biết phải xử lý từ đâu.</p>
-      <p class="rv" style="--d:4.5s;margin-top:10px">Những hình nhân bò trên lưới, là các nhân viên nghĩ rằng chỉ cần hoàn thành checklist, chỉ cần tiến về phía cánh cửa đen là sẽ với hy vọng thoát khỏi công việc — dù chẳng ai biết phía bên kia có gì.</p>
-      <p class="rv" style="--d:5.5s;margin-top:10px">Nhưng càng bò, họ càng bị mắc kẹt trong những lời nhắc, yêu cầu và deadline bất tận.</p>
-      <div class="ticker" style="margin-top:14px"><span>URGENT. FOLLOW UP. GENTLE REMINDER #27.</span></div>
+      <div class="web-wrap">
+        <svg class="web" id="web" viewBox="0 0 300 300" fill="none" stroke="#fbf7f0" stroke-linecap="round"></svg>
+        <p class="web-t1 rv" style="--d:2.6s">Tấm lưới đen phủ xuống là chiếc bẫy vô hình của: những tasks chồng chéo,</p>
+        <p class="web-t2 rv" style="--d:3.4s">những việc tưởng đã xong<br>nhưng lại quay về,</p>
+        <p class="web-t3 rv" style="--d:4.2s">và những vấn đề không ai<br>biết phải xử lý từ đâu.</p>
+      </div>
+      <p class="rv" style="--d:5.2s">Phía trên lưới, là những hình nhân, chính là chúng ta, các nhân viên đang miệt mài hoàn thành deadlines, chăm chỉ trèo lên, với một suy nghĩ đơn giản</p>
+      <p class="rv" style="--d:6.4s;margin-top:12px"><b>“chỉ cần tiến về phía cánh cửa đen là mình sẽ thoát khỏi nơi đây”</b> — dù chẳng ai biết phía bên kia có gì...</p>
+      <p class="rv" style="--d:7.6s;margin-top:12px">Nhưng càng trèo, càng cao, họ lại càng bị mắc kẹt trong những lời nhắc, những yêu cầu và deadlines bất tận.</p>
+      <div class="reminder rv" style="--d:8.6s">URGENT. FOLLOW UP. GENTLE REMINDER #27.</div>
     </div>
   </section>
 
   <!-- 6. DOOR -->
-  <section class="slide light door-slide" data-dur="9000">
+  <section class="slide light door-slide" data-dur="11000">
     <div class="inner">
       <div class="kicker rv" style="--d:.2s">04 / No way out</div>
       <h2 class="rv" style="--d:.4s">THE BLACK DOOR</h2>
-      <p class="rv" style="--d:.9s;margin-top:12px">Cánh cửa - hy vọng cuối cùng: đóng laptop, hoàn thành công việc và rời văn phòng.</p>
-      <p class="rv" style="--d:1.6s;margin-top:10px">Nhưng không ai biết rằng, bên kia cánh cửa là một hộp thư mới, một client mới và một email với tiêu đề:</p>
-      <div class="quote rv" style="--d:2.2s">“URGENT — PLEASE ACTION TODAY.”</div>
+      <p class="rv" style="--d:.9s;margin-top:12px">Sau bao nỗ lực, ngày đêm miệt mài, cuối cùng, họ - chúng ta - những hình nhân kiệt sức đã chạm tới <b>Cánh cửa</b> - <b>hy vọng cuối cùng</b> - đóng laptop, hoàn thành dự án và rời khỏi văn phòng.</p>
+      <p class="rv" style="--d:2s;margin-top:14px">Nhưng không ai biết rằng, cánh cửa là không phải kết thúc, mà chính là một mở đầu mới cho cơn ác mộng kéo dài</p>
+      <p class="rv ind1" style="--d:2.8s">một hộp thư mới</p>
+      <p class="rv ind2" style="--d:3.3s">một client mới và</p>
+      <p class="rv ind3" style="--d:3.8s">một email với tiêu đề:</p>
+      <div class="quote rv" style="--d:4.4s">“URGENT — PLEASE ACTION TODAY.”</div>
       <div class="door-stage">
         <div class="door-glow">
           <div class="email"><b>URGENT — PLEASE ACTION TODAY.</b></div>
