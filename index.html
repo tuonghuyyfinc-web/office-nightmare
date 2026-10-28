@@ -35,10 +35,10 @@
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
     opacity: 0; visibility: hidden;
-    transition: opacity .7s ease, visibility 0s linear .7s;
+    transition: opacity 1.6s ease, visibility 0s linear 1.6s;
     overflow: hidden;
   }
-  .slide.active { opacity: 1; visibility: visible; transition: opacity .7s ease; }
+  .slide.active { opacity: 1; visibility: visible; transition: opacity 1.6s ease .3s; }
   .slide.light { background: var(--cream); color: #1a1718; }
   .slide.light.alt { background: var(--cream-2); }
   .inner {
@@ -249,7 +249,7 @@
 <main class="deck" id="deck">
 
   <!-- 1. COVER -->
-  <section class="slide cover" data-dur="7000">
+  <section class="slide cover" data-dur="10000">
     <div class="frame cover-frame-pulse"></div>
     <div class="inner">
       <div class="kicker rv" style="--d:.2s;font-size:11px">A field guide to the corporate underworld</div>
@@ -274,7 +274,7 @@
   </section>
 
   <!-- 2. STORY -->
-  <section class="slide story" data-dur="10000">
+  <section class="slide story" data-dur="20000">
     <svg class="spiral" viewBox="-500 -500 1000 1000"><g><path id="spiralPath" fill="none" stroke="#8a857f" stroke-width="22" stroke-dasharray="14 10"/></g></svg>
     <div class="mails">
       <div class="mail" style="left:8%;--d:.6s;--r:-6deg">URGENT</div>
@@ -301,7 +301,7 @@
   </section>
 
   <!-- 3. REAPER -->
-  <section class="slide reaper" data-dur="9000">
+  <section class="slide reaper" data-dur="18000">
     <div class="reaper-wrap">
       <svg class="ghost" viewBox="0 0 220 320" style="overflow:visible">
         <g class="scythe">
@@ -327,7 +327,7 @@
   </section>
 
   <!-- 4. TREE -->
-  <section class="slide light tree-slide" data-dur="8000">
+  <section class="slide light tree-slide" data-dur="16000">
     <div class="tree-box"><svg class="tree" viewBox="-1284 -1612 971 1600" preserveAspectRatio="xMidYMin slice">
       <defs>
         <linearGradient id="growFade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".88" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
@@ -344,7 +344,7 @@
   </section>
 
   <!-- 5. WEB -->
-  <section class="slide light alt web-slide" data-dur="12000">
+  <section class="slide light alt web-slide" data-dur="26000">
     <div class="inner">
       <div class="kicker rv" style="--d:.2s">03 / The trap</div>
       <h2 class="rv" style="--d:.4s">THE WEB OF<br>ENDLESS TASKS</h2>
@@ -362,7 +362,7 @@
   </section>
 
   <!-- 6. DOOR -->
-  <section class="slide light door-slide" data-dur="11000">
+  <section class="slide light door-slide" data-dur="22000">
     <div class="inner">
       <div class="kicker rv" style="--d:.2s">04 / No way out</div>
       <h2 class="rv" style="--d:.4s">THE BLACK DOOR</h2>
@@ -383,7 +383,7 @@
   </section>
 
   <!-- 7. FINAL -->
-  <section class="slide final" data-dur="10000">
+  <section class="slide final" data-dur="14000">
     <div class="inner">
       <div>
         <div class="kicker rv" style="--d:.2s">The final warning</div>
